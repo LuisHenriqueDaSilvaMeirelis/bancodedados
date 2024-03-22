@@ -1,7 +1,7 @@
 # views.py
 
 from django.shortcuts import render, redirect
-from .forms import ClienteForm, ProdutoForm
+from .forms import ClienteForm, ProdutoForm, PedidoForm
 from .models import Cliente, Produto
 
 def cadastrar_cliente(request):
@@ -39,3 +39,14 @@ from django.http import HttpResponse
 
 def pagina_inicial(request):
     return render(request, 'appmodelo/pagina_inicial.html')
+
+
+def cadastrar_pedido(request):
+    if request.method == 'POST':
+        form = PedidoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_pedidos')
+    else:
+        form = PedidoForm()
+    return render(request, 'cadastrar_pedido.html', {'form': form})

@@ -19,3 +19,11 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Pedido(models.Model):
+    produto = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.CharField(max_length=100)
+    data_pedido = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome
